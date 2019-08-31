@@ -1,0 +1,21 @@
+<div class="mt-2">
+  <tabset type="pills" id="tabs">
+    <tab [disabled]="!trending" [active]="trending" id="trending" heading="Trending">
+      <app-movie *ngFor="let movie of trending" [movie]="movie" (toggleRecommendationEvent)="toggleMovieRecommendation($event)"
+        (viewRecommendationEvent)="recommendedMovies($event)"></app-movie>
+      <pagination [totalItems]="trendingResult?.total_results" [itemsPerPage]=20 [maxSize]=5 (pageChanged)="getPopular($event)"
+        class="justify-content-center pagination-sm mt-3" [boundaryLinks]="true"></pagination>
+    </tab>
+    <tab [disabled]="!forthcoming" id="forthcoming" heading="Forthcoming">
+      <app-movie *ngFor="let movie of forthcoming" [movie]="movie" (toggleRecommendationEvent)="toggleMovieRecommendation($event)"
+        (viewRecommendationEvent)="recommendedMovies($event)"></app-movie>
+      <pagination [totalItems]="forthcomingResult?.total_results" [itemsPerPage]=20 [maxSize]=5 (pageChanged)="getForthcoming($event)"
+        class="justify-content-center pagination-sm mt-3" [boundaryLinks]="true"></pagination>
+    </tab>
+    <tab [disabled]="!recommended" [active]="recommended" id="recommendations" heading="Recommended">
+      <app-movie *ngFor="let movie of recommended" [movie]="movie" (toggleRecommendationEvent)="toggleMovieRecommendation($event)"
+        (viewRecommendationEvent)="recommendedMovies($event)"></app-movie>
+      <p class="text-center text-danger" *ngIf="recommended?.length == 0">No recommendations found!</p>
+    </tab>
+  </tabset>
+</div>

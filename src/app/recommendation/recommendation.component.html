@@ -1,0 +1,30 @@
+<div id="custom-search-input" class="mt-2">
+  <div class="input-group">
+    <input #keyword id="search-text-field" type="text" (keydown)="handleKeyDown($event)" class="form-control input-lg" placeholder="Search for movies"
+    />
+    <span class="input-group-btn">
+      <button id="search-button" class="btn btn-info btn-lg" (click)="search(keyword.value, null)" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+    </span>
+  </div>
+</div>
+<div class="mt-2">
+  <tabset id="tabs" type="pills">
+    <tab [disabled]="!movies" [active]="movies" id="search-results" heading="Search Results">
+      <p class="text-center text-danger" *ngIf="movies?.length == 0">No results found!</p>
+      <app-movie *ngFor="let movie of movies" [movie]="movie" (toggleRecommendationEvent)="toggleMovieRecommendation($event)" (viewRecommendationEvent)="recommendedMovies($event)"></app-movie>
+      <pagination [totalItems]="searchResult?.total_results" [hidden]="movies?.length == 0" [itemsPerPage]=20 [maxSize]=5 (pageChanged)="search(keyword.value, $event)"
+        class="justify-content-center pagination-sm mt-3" [boundaryLinks]="true"></pagination>
+    </tab>
+    <tab [disabled]="!myMovies" [active]="myMovies" id="my-recommendations" heading="My Recommendations">
+      <app-movie *ngFor="let movie of myMovies" [movie]="movie" (toggleRecommendationEvent)="toggleMovieRecommendation($event)" (viewRecommendationEvent)="recommendedMovies($event)"></app-movie>
+      <pagination [totalItems]="myrecommendation?.total_results" [itemsPerPage]=20 [maxSize]=5 (pageChanged)="getMovies($event)"
+        class="justify-content-center pagination-sm mt-3" [boundaryLinks]="true"></pagination>
+    </tab>
+    <tab [disabled]="!recommended" [active]="recommended" id="recommendations" heading="Recommended">
+      <app-movie *ngFor="let movie of recommended" [movie]="movie" (toggleRecommendationEvent)="toggleMovieRecommendation($event)" (viewRecommendationEvent)="recommendedMovies($event)"></app-movie>
+      <p class="text-center text-danger" *ngIf="recommended?.length == 0">No recommendations found!</p>
+    </tab>
+  </tabset>
+</div>

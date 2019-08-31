@@ -1,0 +1,15 @@
+{
+  "workflow": "OpenJDK8SpringAngularMySQLApp",
+  "scores": {
+    "cadetTests": 10,
+    "commanderTests": 30,
+    "cadetUIUnitTests": 10,
+    "cadete2etests": 10,
+    "commandere2etests": 20,
+    "tslint": 10
+  },
+  "cadetFeedback": {
+  	"hideScore": true,
+    "hideSections": ["pmd"]
+  }
+}
